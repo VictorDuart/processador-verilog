@@ -1,0 +1,38 @@
+#! /usr/local/iverilog/bin/vvp
+:ivl_version "11.0 (devel)" "(s20150603-642-g3bdb50da)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "vhdl_sys";
+:vpi_module "vhdl_textio";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0000000000176830 .scope module, "PC" "PC" 2 1;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "clock";
+    .port_info 1 /INPUT 32 "entrada";
+    .port_info 2 /OUTPUT 32 "saida";
+o00000000008768b8 .functor BUFZ 1, C4<z>; HiZ drive
+v00000000001769c0_0 .net "clock", 0 0, o00000000008768b8;  0 drivers
+o00000000008768e8 .functor BUFZ 32, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+v0000000000176a60_0 .net "entrada", 31 0, o00000000008768e8;  0 drivers
+v000000000017d090_0 .var "saida", 31 0;
+E_0000000000874640 .event posedge, v00000000001769c0_0;
+    .scope S_0000000000176830;
+T_0 ;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v000000000017d090_0, 0, 32;
+    %end;
+    .thread T_0;
+    .scope S_0000000000176830;
+T_1 ;
+    %wait E_0000000000874640;
+    %load/vec4 v0000000000176a60_0;
+    %store/vec4 v000000000017d090_0, 0, 32;
+    %jmp T_1;
+    .thread T_1;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "PC.v";

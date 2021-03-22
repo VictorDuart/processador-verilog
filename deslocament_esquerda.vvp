@@ -1,0 +1,62 @@
+#! /usr/local/iverilog/bin/vvp
+:ivl_version "11.0 (devel)" "(s20150603-642-g3bdb50da)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "vhdl_sys";
+:vpi_module "vhdl_textio";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0000000001036da0 .scope module, "deslocamento_esquerda_tb" "deslocamento_esquerda_tb" 2 3;
+ .timescale 0 0;
+v000000000118d620_0 .var "clock", 0 0;
+v000000000118d6c0_0 .net "sinal_deslocado", 31 0, v0000000001036a00_0;  1 drivers
+v000000000118d760_0 .var "sinal_original", 31 0;
+S_000000000118d3f0 .scope module, "UO" "deslocamento_esquerda" 2 20, 3 1 0, S_0000000001036da0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "clock";
+    .port_info 1 /INPUT 32 "sinal_original";
+    .port_info 2 /OUTPUT 32 "sinal_deslocado";
+v0000000001036f30_0 .net "clock", 0 0, v000000000118d620_0;  1 drivers
+v0000000001036a00_0 .var "sinal_deslocado", 31 0;
+v000000000118d580_0 .net "sinal_original", 31 0, v000000000118d760_0;  1 drivers
+E_0000000001034430 .event posedge, v0000000001036f30_0;
+    .scope S_000000000118d3f0;
+T_0 ;
+    %wait E_0000000001034430;
+    %load/vec4 v000000000118d580_0;
+    %ix/load 4, 2, 0;
+    %flag_set/imm 4, 0;
+    %shiftl 4;
+    %store/vec4 v0000000001036a00_0, 0, 32;
+    %jmp T_0;
+    .thread T_0;
+    .scope S_0000000001036da0;
+T_1 ;
+    %vpi_call 2 9 "$monitor", "clock=%b, Sinal Original=%b, Sinal Deslocado=%b", v000000000118d620_0, v000000000118d760_0, v000000000118d6c0_0 {0 0 0};
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v000000000118d620_0, 0, 1;
+    %delay 5, 0;
+    %pushi/vec4 4, 0, 32;
+    %store/vec4 v000000000118d760_0, 0, 32;
+    %delay 5, 0;
+    %pushi/vec4 8, 0, 32;
+    %store/vec4 v000000000118d760_0, 0, 32;
+    %delay 5, 0;
+    %vpi_call 2 13 "$finish" {0 0 0};
+    %end;
+    .thread T_1;
+    .scope S_0000000001036da0;
+T_2 ;
+    %delay 5, 0;
+    %load/vec4 v000000000118d620_0;
+    %nor/r;
+    %store/vec4 v000000000118d620_0, 0, 1;
+    %jmp T_2;
+    .thread T_2;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "deslocamento_esquerda_tb.v";
+    "./deslocamento_esquerda.v";
